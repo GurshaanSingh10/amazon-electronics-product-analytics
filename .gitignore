@@ -5,9 +5,3 @@ __pycache__/
 .DS_Store
 .env
 .ipynb_checkpoints/
-
-# Generated analysis outputs
-outputs/*
-
-# Raw dataset (download separately)
-data/*.csv
