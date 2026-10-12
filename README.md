@@ -6,6 +6,8 @@ An end-to-end data analytics project exploring historical Amazon electronics rev
 
 ![Amazon Electronics Analytics Dashboard](Screenshots/Dashboard_Overview.png)
 
+![Detailed Analytics](Screenshots/Dashboard_Analysis.png)
+
 ## Project Overview
 
 This project analyses historical product-review data to understand customer rating patterns, product and category performance, and changes in review activity over time.
