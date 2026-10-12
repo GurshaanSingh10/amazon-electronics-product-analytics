@@ -1,89 +1,88 @@
-# Amazon Electronics Product & Customer Review Analytics
+# Amazon Electronics Product & Review Analytics
 
-A reproducible data analytics project that investigates product review activity, customer/reviewer engagement, category performance, and rating quality using Python, SQL, and an interactive Streamlit dashboard.
+An end-to-end data analytics project exploring historical Amazon electronics reviews using Python, SQL, Streamlit, and Power BI.
 
-> **Data limitation:** the source is a ratings/reviews dataset. It does not contain order transactions, units sold, revenue, product-page views, add-to-cart events, or conversion events. Therefore, this project does **not** claim to measure sales, revenue, conversion, or causal product impact. Review count is treated only as review activity.
+## Project Overview
 
-## Business questions
+This project analyses historical product-review data to understand customer rating patterns, product and category performance, and changes in review activity over time.
 
-1. How does review activity vary over time, and how does average rating move alongside it?
-2. Which categories have the highest review volume, and do they also have high average ratings?
-3. Which categories have comparatively high low-rating shares (ratings 1–2)?
-4. Which brands and products attract the most review activity, and how reliable are their rating comparisons given sample size?
-5. How concentrated is reviewer activity among one-time, occasional, and frequent reviewers?
-6. How do missing brand labels affect the interpretation of brand-level analysis?
+The workflow includes data cleaning, exploratory analysis, SQL queries, and an interactive dashboard.
 
-## Dataset
+## Tech Stack
 
-- Source: Kaggle, [Amazon Electronics dataset](https://www.kaggle.com/datasets/edusanketdk/electronics)
-- Local source file: `data/electronics.csv`
-- Fields include item ID, user ID, rating, timestamp, category, brand, and other attributes.
-- Historical coverage and field quality should be considered when interpreting findings. The current file has about 1.29 million records, 9,560 products, 1.16 million reviewer IDs, and substantial missingness in brand and user/model attributes.
-- Follow the Kaggle dataset's current license and attribution requirements when redistributing or publishing the data.
+- **Python:** Pandas, data cleaning, exploratory data analysis
+- **SQL:** Analytical queries and aggregations
+- **Streamlit:** Interactive analytics dashboard
+- **Power BI:** Measures and dashboard development
+- **Jupyter Notebook:** Exploratory analysis and documentation
 
-## Project structure
+## Key Questions
+
+- How do customer ratings vary across product categories?
+- How has review activity changed over time?
+- Which products and brands receive the most reviews?
+- What proportion of reviews receive low ratings?
+- How do reviewer activity patterns vary?
+
+## Repository Structure
 
 ```text
-amazon_product_analytics/
-├── data/electronics.csv              # source dataset
-├── src/analysis_pipeline.py           # cleaning + repeatable KPI generation
-├── sql/analysis_queries.sql           # analytical SQL examples (PostgreSQL syntax)
-├── dashboard/app.py                  # interactive Streamlit dashboard
-├── notebooks/product_review_analytics.ipynb
-├── outputs/                           # precomputed metrics/tables for dashboard
-├── docs/key_findings.md               # generated descriptive findings
-├── requirements.txt
-└── README.md
+├── dashboard/    # Streamlit dashboard
+├── docs/         # Data dictionary, findings and Power BI guide
+├── notebooks/    # Exploratory analysis
+├── power_bi/     # Power BI measures
+├── sql/          # SQL analysis queries
+├── src/          # Reproducible analysis pipeline
+├── data/         # Local dataset (not tracked by Git)
+├── outputs/      # Generated analysis outputs (not tracked by Git)
+├── README.md
+└── requirements.txt
 ```
 
-## Run it
+## Getting Started
 
-Python 3.10+ is recommended.
+1. Clone this repository:
 
-```bash
-python -m venv .venv
-# macOS/Linux
-source .venv/bin/activate
-# Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-python src/analysis_pipeline.py
-streamlit run dashboard/app.py
-```
+   ```bash
+   git clone https://github.com/GurshaanSingh10/amazon-electronics-product-analytics.git
+   cd amazon-electronics-product-analytics
+   ```
 
-The pipeline regenerates the summary CSV files in `outputs/`. To use another local file:
+2. Create and activate a virtual environment.
 
-```bash
-python src/analysis_pipeline.py --input /path/to/your_dataset.csv
-```
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
 
-The dashboard reads the precomputed files under `outputs/`; after changing input data, rerun the pipeline.
+3. Install dependencies.
 
-## SQL
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-`sql/analysis_queries.sql` contains PostgreSQL queries for overall KPIs, monthly activity, category and brand scorecards, product rankings with minimum evidence thresholds, reviewer segmentation, and rating-risk investigation. Import the CSV into a table named `electronics_reviews` before running them. Ensure `timestamp` is parsed as a date/timestamp.
+4. Obtain the source dataset and place it at `data/electronics.csv`. Check the dataset's original source and license before downloading or redistributing it.
 
-## Analytical methods
+5. Run the analysis pipeline.
 
-- Data validation: required-column checks, timestamp/rating parsing, valid 1–5 rating range, exact duplicate removal, missing brand labelling.
-- KPIs: review records, unique products/reviewers, average rating, positive rating share, low-rating share.
-- Product/category scorecards: review volume, average rating, product coverage, low-rating share.
-- Reviewer activity segments: one-time, occasional (2–4), frequent (5+) reviewers.
-- Evidence threshold: product rankings can filter to a minimum review count to reduce small-sample noise.
+   ```bash
+   python src/analysis_pipeline.py
+   ```
 
-## Limitations
+6. Launch the dashboard.
 
-- Ratings/reviews are not equivalent to purchases or sales.
-- Reviewer ID uniqueness does not guarantee one ID per real-world customer.
-- No session ID is present, so conversion funnels cannot be measured.
-- No product price/order line/revenue fields are present, so revenue and profitability cannot be calculated.
-- The data is historical; do not frame findings as current marketplace behaviour.
-- Category/brand differences are observational and should not be presented as causal.
+   ```bash
+   streamlit run dashboard/app.py
+   ```
 
-## Resume description (edit after reviewing the final outputs)
+## Data & Limitations
 
-**Amazon Electronics Product & Review Analytics | Python, SQL, Streamlit, Pandas, Plotly**
-- Built a reproducible analytics pipeline for 1.29M+ historical product-rating records, validating data quality and generating product, category, monthly-trend, and reviewer-engagement scorecards.
-- Developed SQL analyses and an interactive dashboard to compare review volume, rating distributions, low-rating share, and category/brand performance while accounting for missing metadata and small-sample effects.
-- Translated descriptive patterns into investigation priorities and documented limitations to avoid conflating review activity with actual sales or revenue.
+The analysis uses historical product-review records. Review counts and ratings should not be interpreted as sales, revenue, conversion rates, or current customer sentiment.
 
-Only retain metrics and claims that you can reproduce and explain in an interview. Replace generic wording with the strongest actual findings after reviewing `docs/key_findings.md`.
+The raw dataset and generated outputs are excluded from version control. Run the pipeline locally to generate the required outputs.
+
+## Author
+
+**Gurshaan Bajwa**
+
+[GitHub Profile](https://github.com/GurshaanSingh10)
