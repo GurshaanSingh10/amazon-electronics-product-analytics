@@ -2,6 +2,10 @@
 
 An end-to-end data analytics project exploring historical Amazon electronics reviews using Python, SQL, Streamlit, and Power BI.
 
+## Dashboard Preview
+
+![Amazon Electronics Analytics Dashboard](Screenshots/Dashboard_Overview.png)
+
 ## Project Overview
 
 This project analyses historical product-review data to understand customer rating patterns, product and category performance, and changes in review activity over time.
