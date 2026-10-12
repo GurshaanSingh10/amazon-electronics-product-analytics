@@ -1,0 +1,32 @@
+-- Optional Power BI measures for a table named electronics_reviews.
+-- Rename columns to match the imported table exactly.
+
+Review Records = COUNTROWS(electronics_reviews)
+
+Unique Products = DISTINCTCOUNT(electronics_reviews[item_id])
+
+Unique Reviewers = DISTINCTCOUNT(electronics_reviews[user_id])
+
+Average Rating = AVERAGE(electronics_reviews[rating])
+
+Positive Rating Share % =
+DIVIDE(
+    CALCULATE(COUNTROWS(electronics_reviews), electronics_reviews[rating] >= 4),
+    [Review Records]
+)
+
+Low Rating Share % =
+DIVIDE(
+    CALCULATE(COUNTROWS(electronics_reviews), electronics_reviews[rating] <= 2),
+    [Review Records]
+)
+
+Products with 50+ Reviews =
+COUNTROWS(
+    FILTER(
+        VALUES(electronics_reviews[item_id]),
+        CALCULATE(COUNTROWS(electronics_reviews)) >= 50
+    )
+)
+
+-- Label chart titles and axis captions as review activity, not sales.
